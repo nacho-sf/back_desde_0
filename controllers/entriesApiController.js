@@ -194,9 +194,9 @@ const createAuthor = async (req,res) => {
 
 module.exports = {
     getEntries,
-    createEntry,
-    //updateEntry,
-    //deleteEntry,
-    //getAuthors,
-    //createAuthor
+    //createEntry,
+    updateEntry,
+    deleteEntry,
+    getAuthors,
+    createAuthor
     }

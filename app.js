@@ -1,10 +1,11 @@
 // Importación de módulos externos
 const express = require('express')  //Importación de Express
-const fetch = require("node-fetch"); // ¿Importación de Fetch?
+//const fetch = require("node-fetch"); // ¿Importación de Fetch aquí?
 
 //Importación de rutas
 const productsRoutes = require("./routes/productsRoutes");
 const productsApiRoutes = require("./routes/productsApiRoutes");
+const entriesApiRoutes = require("./routes/entriesApiRoutes");
 
 // Importación de módulos internos
 const manage404 = require('./middlewares/error404'); //Middleware

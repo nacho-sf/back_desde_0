@@ -2,17 +2,17 @@ const express = require("express");
 
 // Rutas de entries:
 const entriesApiController = require("../controllers/entriesApiController");
-const entriesApiRouter = express.Router();
+const entriesApiRoutes = express.Router();
 
 //entriesApiRouter.get("/", entriesApiController.getEntries);
-entriesApiRouter.post("/", entriesApiController.createAuthor);
-//entriesApiRouter.post("/", entriesApiController.createEntry);
-entriesApiRouter.put("/", entriesApiController.updateEntry);
-entriesApiRouter.delete("/", entriesApiController.deleteEntry);
-entriesApiRouter.get("/", entriesApiController.getAuthors);
+entriesApiRoutes.post("/", entriesApiController.createAuthor);
+//entriesApiRoutes.post("/", entriesApiController.createEntry);
+entriesApiRoutes.put("/", entriesApiController.updateEntry);
+entriesApiRoutes.delete("/", entriesApiController.deleteEntry);
+entriesApiRoutes.get("/", entriesApiController.getAuthors);
 
 
-module.exports = entriesApiRouter;
+module.exports = entriesApiRoutes;
 
 // Endpoints:
 // GET http://localhost:3000/entries -> ALL

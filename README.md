@@ -724,6 +724,12 @@ ORDER BY e.title;`,[email])
 
 
 
+---> Se importa la ruta en app.js:
+
+//Importación de rutas
+const entriesApiRoutes = require("./routes/entriesApiRoutes");
+
+
 ---> Se inicializa en app.js:
 
 // Router de entries: API
@@ -736,6 +742,8 @@ app.use("/api/entries", entriesApiRoutes);
 
 
 Descomentar la primera prueba:
+
+-> Encender el servidor de PostgreSQL en windows
 
 -> Ejecutar node models/entry.js
 
