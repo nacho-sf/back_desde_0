@@ -4,7 +4,7 @@ const express = require("express");
 const entriesApiController = require("../controllers/entriesApiController");
 const entriesApiRoutes = express.Router();
 
-//entriesApiRouter.get("/", entriesApiController.getEntries);
+//entriesApiRoutes.get("/", entriesApiController.getEntries);
 entriesApiRoutes.post("/", entriesApiController.createAuthor);
 //entriesApiRoutes.post("/", entriesApiController.createEntry);
 entriesApiRoutes.put("/", entriesApiController.updateEntry);
