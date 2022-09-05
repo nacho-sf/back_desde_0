@@ -1,0 +1,28 @@
+{
+  "name": "back_desde_0",
+  "version": "1.0.0",
+  "description": "Crear back desde 0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nacho-sf/back_desde_0.git"
+  },
+  "author": "nacho-sf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nacho-sf/back_desde_0/issues"
+  },
+  "homepage": "https://github.com/nacho-sf/back_desde_0#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "node-fetch": "^2.6.7",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
