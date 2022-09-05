@@ -602,3 +602,198 @@ module.exports = {
 
 // Inicialización de las rutas (Router) de productos: API
 app.use("/api/products", productsApiRoutes);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      //// BBDD SQL ////
+
+
+[PostgreSQL] ---> Gestor de bases de datos SQL
+
+[pgAdmin] ---> Visor de bases de datos en PostgreSQL
+
+[Elephant] ---> 
+
+
+-Instalar PostgreSQL en windows y comprobar que funciona. (Mirar tutorial)
+
+-Instalar Postgre en NodeJS -> nmp i pg
+
+-Crear la carpeta queries y dentro el archivo "queries.js" para guardarlas
+
+-Crear la carpeta models y dentro el archivo "demo_pg.js" para hacer una prueba de conecctividad entre nuestra base de datos de PostgreSQL y NodeJS:
+
+
+const { Pool } = require('pg')
+const pool = new Pool({
+  host: 'localhost',
+  user: 'postgres',
+  database: 'postgres',
+  password: '1234'
+})
+
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error acquiring client', err.stack)
+  }
+  client.query('SELECT NOW()', (err, result) => {
+    release()
+    if (err) {
+      return console.error('Error executing query', err.stack)
+    }
+    console.log(result.rows)
+  })
+})
+
+
+-Se ejecuta "demo_pg.js" en la terminal -> "node models/demo_pg.js", y si sale la fecha y hora local es que está conectado correctamente a nuestra base de datos
+
+
+
+
+
+
+-El objetivo de back es crear una API que nos permita leer, crear, borrar y actualizar datos.
+
+    ->Creamos "entriesApiRoutes.js" en la carpeta routes // ROUTES //
+
+    ->Creamos "entriesApiController.js" en la carpeta controllers // CONTROLLER //
+
+    ->Creamos "entry.js" en la carpeta models  // MODELS //
+
+
+
+
+
+
+
+  // ROUTES // (entriesApiRoutes.js)
+
+-Las rutas se crean en función de los métodos que se tienen en models/"entry.js"
+
+-Habilitaremos 3 endpoints. Sin embargo, en el router añadiremos 2 líneas (una de ellas tiene 2 métodos distintos, GET y POST)
+
+
+
+
+
+  // CONTROLLERS // (entriesApiController.js)
+
+-Los nombres de estas funciones asociadas los idearemos en función de lo que hagan. Ej: getEntries - createEntry
+
+-Si nos fijamos, tenemos una ruta para dos métodos distintos:
+    --> "entriesApiRouter.get('/entries') -->  getEntries // getAllEntry
+
+-Entonces, en lugar de escribir dos rutas iguales (con llamada a funciones asociadas distintas), en una única función asociada escribimos un condicional que haga una cosa u otra. (vídeo min 27:30)
+
+-El código de estas funciones asociadas (lógica de negocio), tendrá que ejecutar una llamada a los métodos de bases de datos (models), que a su vez, los métodos de models van a meter y sacar cosas de la base de datos
+
+
+
+
+
+  // MODELS // (entry.js)
+
+-Esta construcción es parecida a lo que se ha hecho anteriormente. Son funciones asíncronas que luego se exportan. Cada función va a hacer lo que su propio nombre indica.
+
+-En la primera función, la query está metida dentro del método ".query" de postgre:
+
+await client.query(queries.getEmailEntry,[email])
+
+por:
+
+await client.query(`SELECT e.title,e.content,e.date,e.category,a.name,a.surname,a.image
+FROM entries AS e
+INNER JOIN authors AS a
+ON e.id_author=a.id_author
+WHERE a.email=$1
+ORDER BY e.title;`,[email])
+
+
+
+
+---> Se inicializa en app.js:
+
+// Router de entries: API
+app.use("/api/entries", entriesApiRoutes);
+
+
+
+
+---> PROBAR:
+
+
+Descomentar la primera prueba:
+
+-> Ejecutar node models/entry.js
+
+-Te devuelve un array de objetos procesado, con los valores de la query hecha a la base de datos, cosa que ya es manejable (el array de objetos) para operar como sea necesario.
+
+-Hacer prueba de crear registro --> Descomentar "newEntry" y ejecutar. Te devuelve en la terminal en número de entradas creadas. Si vamos a Postgre y hacemos un query para ver los registros de entries, veremos los nuevos datos.
+
+
+
+-FUNCIONAMIENTO: En la ruta se pone la función de controlador asociada (función callback). A su vez, el controlador es una función asíncrona, el cual, en función del parámetro que le pases ordena una llamada a los métodos del modelo, los cuales obtendran los datos de la función getEntriesByEmail (entradas filtradas por email) o getAllEntries (todas las entradas)
+
+
+ARCHIVO RUTAS
+
+ --> (la ruta le dice al controlador qué acción tiene que hacer / GET, POST...)
+
+ ARCHIVO CONTROLADORES
+
+ --> (el controlador le va a solicitar al modelo lo que quiere / getAll, postOne...)
+
+ARCHIVO MODELO
+
+
+
+
+CREATE ENTRY:
+
+-En Postman habrá que mandar un POST a la ruta "/entries", rellenando el textarea del body con un objeto de entrada:
+
+El objeto que irá en el body de Postman será:
+
+let newEntry = {
+    title:"Nos gustan las tortillas",
+    content:"En el Marquina las tortillas vuelan",
+    email:"albertu@thebridgeschool.es",
+    category:"gastronomía"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // BBDD NoSQL //
+
+
+[MongoDB] ---> Gestor de bases de datos SQL
+
+[Compass] ---> Visor de bases de datos en PostgreSQL
+
+[Atlas] ---> 
+
+

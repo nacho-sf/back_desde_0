@@ -27,6 +27,9 @@ app.use("/products", productsRoutes);
 // Inicialización de las rutas (Router) de productos: API
 app.use("/api/products", productsApiRoutes);
 
+// Inicialización de las rutas (Router) de entries: API
+app.use("/api/entries", entriesApiRoutes);
+
 
 // Middleware de error 404 (Respuesta por defecto para rutas no existentes)
 app.use(manage404);
